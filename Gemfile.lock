@@ -203,7 +203,7 @@ DEPENDENCIES
   rails (~> 7.0.0.alpha2)
   redis (~> 4.0)
   selenium-webdriver
-  sqlite3 (~> 1.4)
+  sqlite3 (= 1.4.2)
   stimulus-rails (>= 0.4.0)
   turbo-rails (= 0.8.2)
   tzinfo-data
