@@ -1,24 +1,24 @@
-# README
+# String Balanced Test
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## System requirements
 
-Things you may want to cover:
+- Ruby 3.0.2
+- Ruby on Rails 7.0.0.alpha
 
-* Ruby version
+## Dependencies
 
-* System dependencies
+### Ruby
 
-* Configuration
+    bundle install
 
-* Database creation
+## Tests
 
-* Database initialization
+You should run the tests with the following command:
 
-* How to run the test suite
+    bin/rails test
 
-* Services (job queues, cache servers, search engines, etc.)
+## Server
 
-* Deployment instructions
+You should run the following command:
 
-* ...
+    bin/rails server
