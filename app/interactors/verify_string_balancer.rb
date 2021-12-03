@@ -44,6 +44,11 @@ class VerifyStringBalancer
   end
 
   def validate!
-    context.fail! unless context.stack.empty?
+    if context.stack&.empty?
+      context.message = I18n.t(:status, scope: :string_balancer, count: 1)
+    else
+      context.message = I18n.t(:status, scope: :string_balancer, count: 0)
+      context.fail!
+    end
   end
 end

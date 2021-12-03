@@ -1,0 +1,6 @@
+<%= form_with url: string_balancers_path do |form| %>
+  <%= text_field_tag "string_balancer[prompt]" %>
+  <%= form.submit %>
+<% end %>
+
+<div id="result" style="margin-top: 20px;font-size: 28px"></div>
