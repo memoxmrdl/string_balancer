@@ -2,53 +2,41 @@ class VerifyStringBalancer
   include Interactor
 
   def call
-    clean_spaces!
-    clean_letters!
-    clean_emoticons!
-    review_string
-
-    validate!
+    validate_balance
   end
 
   private
 
-  def clean_spaces!
-    context.prompt.delete!(" ")
-  end
+  def validate_balance
+    context.left = 0
+    context.right = 0
+    context.smile = 0
+    context.sad = 0
+    context.pre = ""
 
-  def clean_letters!
-    context.prompt.remove!(/[a-z]/)
-  end
+    context.prompt.split("").each do |chr|
+      if chr == ")"
+        if context.pre == ":"
+          context.smile += 1
+        else
+          context.right += 1
 
-  def clean_emoticons!
-    context.prompt.remove!(/(\:\))|(\:\()|(\(\:\))/)
-  end
-
-  def review_string
-    context.stack = context.prompt.split("").each_with_object([]) do |chr, memo|
-      next if chr == ":"
-
-      if chr == "("
-        memo << chr
-        next
+          if context.right > (context.left + context.sad)
+           context.fail!
+           break
+          end
+        end
+      elsif chr == "("
+        if context.pre == ":"
+          context.sad += 1
+        else
+          context.left += 1
+        end
       end
 
-      memo.length == 0 && (break)
-
-      case chr
-      when ")"
-        check = memo.pop
-        chr == "(" && (break)
-      end
+      context.pre = chr
     end
-  end
 
-  def validate!
-    if context.stack&.empty?
-      context.message = I18n.t(:status, scope: :string_balancer, count: 1)
-    else
-      context.message = I18n.t(:status, scope: :string_balancer, count: 0)
-      context.fail!
-    end
+    context.fail! if context.left > (context.right + context.smile)
   end
 end

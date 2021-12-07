@@ -38,5 +38,6 @@ class VerifyStringBalancerTest < ActionDispatch::IntegrationTest
     assert @subject.call(prompt: "hoy pm: fiesta :):)").success?
     assert @subject.call(prompt: ":((").failure?
     assert @subject.call(prompt: "a (b (c (d) c) b) a :)").success?
+    assert @subject.call(prompt: ":(:())").success?
   end
 end
